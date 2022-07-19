@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mocha/main.dart';
 
 import './question.dart';
+import './answer.dart';
 
 void main() {
   runApp(MyApp());
@@ -28,8 +29,18 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     var questions = [
-      'Whats your favorite color?',
-      'Whats your favorite animal?',
+      {
+        'questionText': 'Whats your favorite color?',
+        'answers': ['Black', 'Red', 'Green', 'White'],
+      },
+      {
+        'questionText': 'Whats your favorite animal?',
+        'answers': ['Cat', 'Dog', 'Rabbit', 'Fish'],
+      },
+      {
+        'questionText': 'Whats your favorite phone?',
+        'answers': ['iPhone', 'Android', 'Oppo', 'Huawei'],
+      },
     ];
     return MaterialApp(
       home: Scaffold(
@@ -39,23 +50,16 @@ class _MyAppState extends State<MyApp> {
         body: Column(
           children: [
             Question(
-              questionText: questions[_questionIndex],
+              questionText: questions[_questionIndex]['questionText'],
             ),
-            ElevatedButton(
-              onPressed: _answerQuestion,
-              child: const Text('Answer 1'),
+            Answer(
+              selectHandler: _answerQuestion,
             ),
-            ElevatedButton(
-              onPressed: _answerQuestion,
-              child: const Text('Answer 2'),
+            Answer(
+              selectHandler: _answerQuestion,
             ),
-            ElevatedButton(
-              onPressed: _answerQuestion,
-              child: const Text('Answer 3'),
-            ),
-            ElevatedButton(
-              onPressed: _answerQuestion,
-              child: const Text('Answer 4'),
+            Answer(
+              selectHandler: _answerQuestion,
             ),
           ],
         ),
