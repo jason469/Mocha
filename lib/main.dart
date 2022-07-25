@@ -1,75 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:mocha/main.dart';
-
-import './question.dart';
-import './answer.dart';
+import 'package:mocha/constants/global_variables.dart';
+import 'package:mocha/features/auth/screens/auth_screen.dart';
+import 'package:mocha/router.dart';
 
 void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return _MyAppState();
-  }
-}
-
-class _MyAppState extends State<MyApp> {
-  // The _ defines MyAppState as a private class
-  var _questionIndex = 0;
-
-  void _answerQuestion() {
-    setState(() {
-      _questionIndex = _questionIndex + 1;
-    });
-    print('Answer chosen');
-  }
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    List<Map> questions = <Map>[];
-    questions.add({
-      'questionText': 'Whats your favorite color?',
-      'answers': ['Black', 'Red', 'Green', 'White'],
-    });
-
-    questions.add(
-      {
-        'questionText': 'Whats your favorite animal?',
-        'answers': ['Cat', 'Dog', 'Rabbit', 'Fish'],
-      },
-    );
-
-    questions.add(
-      {
-        'questionText': 'Whats your favorite phone?',
-        'answers': ['iPhone', 'Android', 'Oppo', 'Huawei'],
-      },
-    );
-
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Mocha'),
-        ),
-        body: Column(
-          children: [
-            Question(
-              questionText: questions[_questionIndex]['questionText'],
-            ),
-            Answer(
-              selectHandler: _answerQuestion,
-            ),
-            Answer(
-              selectHandler: _answerQuestion,
-            ),
-            Answer(
-              selectHandler: _answerQuestion,
-            ),
-          ],
-        ),
-      ),
+      title: 'Mocha',
+      theme: ThemeData(
+          scaffoldBackgroundColor: GlobalVariables.backgroundColor,
+          colorScheme:
+              const ColorScheme.light(primary: GlobalVariables.secondaryColor),
+          appBarTheme: const AppBarTheme(
+              elevation: 0, iconTheme: IconThemeData(color: Colors.black))),
+      onGenerateRoute: (settings) => generateRoute(settings),
+      home: const AuthScreen(),
     );
   }
 }
