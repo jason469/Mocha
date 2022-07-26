@@ -47,3 +47,6 @@ app.*.map.json
 /android/app/release
 
 server/node_modules
+server/.env
+.vscode/
+node_modules/
