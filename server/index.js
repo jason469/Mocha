@@ -9,6 +9,7 @@ const DB = process.env.DB_CONNECTION;
 const authRouter = require('./routes/auth')
 
 //Middleware
+app.use(express.json())
 app.use(authRouter)
 
 //Connections
