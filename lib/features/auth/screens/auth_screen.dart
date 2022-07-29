@@ -107,7 +107,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       CustomButton(
                           text: "Sign Up",
                           onTap: () {
-                            if (_signInFormKey.currentState!.validate()) {
+                            if (_signUpFormKey.currentState!.validate()) {
                               signUpUser();
                             }
                           })

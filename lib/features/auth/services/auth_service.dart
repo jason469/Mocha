@@ -4,7 +4,6 @@ import 'package:mocha/constants/global_variables.dart';
 import 'package:mocha/constants/utils.dart';
 import 'package:mocha/models/user.dart';
 import 'package:http/http.dart' as http;
-import 'package:mocha/constants/global_variables.dart';
 
 class AuthService {
   void signUpUser({
@@ -14,6 +13,7 @@ class AuthService {
     required String name,
   }) async {
     try {
+      print(email);
       User user = User(
           id: '',
           name: name,
