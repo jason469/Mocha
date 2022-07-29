@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mocha/constants/global_variables.dart';
 import 'package:mocha/features/auth/screens/auth_screen.dart';
+import 'package:mocha/features/home/screens/home_screen.dart';
+import 'package:mocha/features/auth/services/auth_service.dart';
 import 'package:mocha/providers/user_provider.dart';
 import 'package:mocha/router.dart';
 import 'package:provider/provider.dart';
@@ -13,10 +15,21 @@ void main() {
   ], child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final AuthService authService = AuthService();
+  @override
+  void initState() {
+    super.initState();
+    authService.getUserData(context: context);
+  }
+
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Mocha',
@@ -27,7 +40,9 @@ class MyApp extends StatelessWidget {
           appBarTheme: const AppBarTheme(
               elevation: 0, iconTheme: IconThemeData(color: Colors.black))),
       onGenerateRoute: (settings) => generateRoute(settings),
-      home: const AuthScreen(),
+      home: Provider.of<UserProvider>(context).user.token.isNotEmpty
+          ? const HomeScreen()
+          : const AuthScreen(),
     );
   }
 }
