@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mocha/common/widgets/CustomButton.dart';
 import 'package:mocha/common/widgets/CustomTextField.dart';
+import 'package:mocha/common/widgets/HiddenTextField.dart';
 import 'package:mocha/constants/global_variables.dart';
 import 'package:mocha/features/auth/services/auth_service.dart';
 
@@ -105,7 +106,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       const SizedBox(
                         height: 10,
                       ),
-                      CustomTextField(
+                      HiddenTextField(
                         controller: _passwordController,
                         hintText: "Password",
                       ),
@@ -161,7 +162,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       const SizedBox(
                         height: 10,
                       ),
-                      CustomTextField(
+                      HiddenTextField(
                         controller: _passwordController,
                         hintText: "Password",
                       ),
