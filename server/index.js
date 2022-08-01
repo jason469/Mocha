@@ -21,10 +21,6 @@ mongoose.connect(DB).then(() => {
 })
 
 //API
-app.get('/', (req, res) => {
-    res.json({hi: "Hello"})
-})
-
 
 app.listen(PORT, "0.0.0.0", () => {
     console.log(`connected at port ${PORT}`)

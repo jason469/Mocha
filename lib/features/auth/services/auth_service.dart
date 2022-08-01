@@ -63,14 +63,14 @@ class AuthService {
         response: res,
         context: context,
         onSuccess: () async {
-          SharedPreferences prefs = await SharedPreferences.getInstance();
           Provider.of<UserProvider>(context, listen: false).setUser(res.body);
-          await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
           Navigator.pushNamedAndRemoveUntil(
             context,
             HomeScreen.routeName,
             (route) => false,
           );
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
         },
       );
     } catch (e) {
@@ -89,11 +89,13 @@ class AuthService {
         prefs.setString('x-auth-token', '');
       }
 
-      var tokenRes = await http.post(Uri.parse('$uri/tokenIsValid'),
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8',
-            'x-auth-token': token!
-          });
+      var tokenRes = await http.post(
+        Uri.parse('$uri/tokenIsValid'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': token!
+        },
+      );
 
       var response = jsonDecode(tokenRes.body);
       if (response == true) {
