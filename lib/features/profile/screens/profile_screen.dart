@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mocha/constants/global_variables.dart';
 import 'package:mocha/providers/user_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -15,9 +16,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context).user;
     return Scaffold(
-      body: Center(
-        child: Text(
-          "Profile",
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(50),
+        child: AppBar(
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+              gradient: GlobalVariables.appBarGradient,
+            ),
+          ),
         ),
       ),
     );
