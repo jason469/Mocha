@@ -9,14 +9,15 @@ class User {
   final String type;
   final String token;
 
-  User(
-      {required this.id,
-      required this.name,
-      required this.email,
-      required this.password,
-      required this.address,
-      required this.type,
-      required this.token});
+  User({
+    required this.id,
+    required this.name,
+    required this.email,
+    required this.password,
+    required this.address,
+    required this.type,
+    required this.token,
+  });
 
   Map<String, dynamic> toMap() {
     return {

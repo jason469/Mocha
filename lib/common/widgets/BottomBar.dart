@@ -1,8 +1,10 @@
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:flutter/material.dart';
 import 'package:mocha/constants/global_variables.dart';
 import 'package:mocha/features/agenda/screens/agenda_screen.dart';
 import 'package:mocha/features/calendar/screens/calendar_screen.dart';
 import 'package:mocha/features/profile/screens/profile_screen.dart';
+
 
 class BottomBar extends StatefulWidget {
   static const String routeName = '/actual-home';
