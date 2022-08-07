@@ -79,7 +79,7 @@ class _NoteItemState extends State<NoteItem> {
                         note.buildDescription(context),
                       ),
                       trailing: Text(
-                        note.buildUser(context),
+                        note.buildUserName(context),
                       ),
                     )
                   : ListTile(
@@ -96,7 +96,7 @@ class _NoteItemState extends State<NoteItem> {
                         style: GlobalVariables.completedNote,
                       ),
                       trailing: Text(
-                        note.buildUser(context),
+                        note.buildUserName(context),
                         style: GlobalVariables.completedNote,
                       ),
                     ),

@@ -22,6 +22,9 @@ class _AgendaScreenState extends State<AgendaScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Agenda'),
+      ),
       body: Column(
         children: [
           Expanded(
@@ -35,17 +38,6 @@ class _AgendaScreenState extends State<AgendaScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Container(
-                            padding: const EdgeInsets.all(8.0),
-                            child: const Text(
-                              "Agenda",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
                           Container(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(

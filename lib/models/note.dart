@@ -5,6 +5,7 @@ class Note {
   final String title;
   final String description;
   final String userId;
+  String? userName;
   final bool isCompleted;
 
   Note({
@@ -12,6 +13,7 @@ class Note {
     required this.title,
     required this.description,
     required this.userId,
+    this.userName,
     required this.isCompleted,
   });
 
@@ -21,6 +23,7 @@ class Note {
       'title': title,
       'description': description,
       'userId': userId,
+      'userName': userName,
       'isCompleted': isCompleted,
     };
   }
@@ -31,6 +34,7 @@ class Note {
       title: map['title'] ?? '',
       description: map['description'] ?? '',
       userId: map['userId'] ?? '',
+      userName: map['userName'] ?? '',
       isCompleted: map['isCompleted'] ?? '',
     );
   }

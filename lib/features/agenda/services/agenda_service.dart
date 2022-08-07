@@ -4,10 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:mocha/constants/utils.dart';
 
 import 'package:mocha/common/widgets/ListItem.dart';
-import 'package:mocha/providers/user_provider.dart';
-import 'package:provider/provider.dart';
-
-import '../../../constants/error_handling.dart';
 
 class AgendaService {
   Future<List<ListItem>> getNotes({
@@ -26,7 +22,7 @@ class AgendaService {
             item["title"],
             item["description"],
             DateTime.parse(item["date"]),
-            item["userId"],
+            item["userName"],
             item["isCompleted"],
           ),
         );

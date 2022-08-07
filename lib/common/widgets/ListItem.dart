@@ -8,7 +8,7 @@ abstract class ListItem {
   String buildTitle(BuildContext context);
   String buildDescription(BuildContext context);
   String buildDate(BuildContext context);
-  String buildUser(BuildContext context);
+  String buildUserName(BuildContext context);
   bool buildIsCompleted(BuildContext context);
 }
 
@@ -17,10 +17,10 @@ class MessageItem implements ListItem {
   final String title;
   final String description;
   final DateTime date;
-  final String user;
+  final String userName;
   final bool isCompleted;
 
-  MessageItem(this.id, this.title, this.description, this.date, this.user,
+  MessageItem(this.id, this.title, this.description, this.date, this.userName,
       this.isCompleted);
 
   @override
@@ -36,7 +36,7 @@ class MessageItem implements ListItem {
   String buildDate(BuildContext context) => DateFormat('h:mm a').format(date);
 
   @override
-  String buildUser(BuildContext context) => user;
+  String buildUserName(BuildContext context) => userName;
 
   @override
   bool buildIsCompleted(BuildContext context) => isCompleted;
