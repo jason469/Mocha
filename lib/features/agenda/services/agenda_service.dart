@@ -16,10 +16,12 @@ class AgendaService {
       var resBody = jsonDecode(res.body);
       for (var i = 0; i < resBody.length; i++) {
         var item = resBody[i];
+        print(item);
         allNotes.add(MessageItem(
+            item["_id"],
             item["title"],
             item["description"],
-            item["date"],
+            DateTime.parse(item["date"]),
             item["userId"])
         );
       }

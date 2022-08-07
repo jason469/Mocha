@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
+import 'package:mocha/common/widgets/NoteItem.dart';
 
-import 'package:mocha/constants/global_variables.dart';
-import 'package:mocha/common/widgets/ListItem.dart';
-import 'package:mocha/providers/user_provider.dart';
 import 'package:mocha/features/agenda/screens/add_note_screen.dart';
 import 'package:mocha/features/agenda/services/agenda_service.dart';
 
@@ -25,7 +22,6 @@ class _AgendaScreenState extends State<AgendaScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: GlobalVariables.greyBackgroundCOlor,
       body: Column(
         children: [
           Expanded(
@@ -89,21 +85,8 @@ class _AgendaScreenState extends State<AgendaScreen> {
             child: FutureBuilder(
               future: agendaService.getNotes(context: context),
               builder: (context, AsyncSnapshot snapshot) {
-                if (!snapshot.hasData) {
-                  return const Center(child: CircularProgressIndicator());
-                } else {
-                  return ListView.builder(
-                    itemCount: snapshot.data.length,
-                    itemBuilder: (context, index) {
-                      final item = snapshot.data[index];
-                      return ListTile(
-                        title: item.buildTitle(context),
-                        subtitle: item.buildDescription(context),
-                      );
-                    },
-                  );
-                }
-              },
+                return NoteItem(context: context, snapshot: snapshot);
+              }
             ),
           ),
         ],
