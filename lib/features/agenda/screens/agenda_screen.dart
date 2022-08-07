@@ -57,21 +57,6 @@ class _AgendaScreenState extends State<AgendaScreen> {
                               textAlign: TextAlign.center,
                             ),
                           ),
-                          Container(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) =>
-                                        const AddNoteScreen()));
-                              },
-                              style: ElevatedButton.styleFrom(
-                                shape: const CircleBorder(),
-                                primary: Colors.blue,
-                              ),
-                              child: const Icon(Icons.add),
-                            ),
-                          )
                         ],
                       ),
                     ),
@@ -80,13 +65,28 @@ class _AgendaScreenState extends State<AgendaScreen> {
               ),
             ),
           ),
-          Expanded(
+          Flexible(
             flex: 2,
             child: FutureBuilder(
-              future: agendaService.getNotes(context: context),
-              builder: (context, AsyncSnapshot snapshot) {
-                return NoteItem(context: context, snapshot: snapshot);
-              }
+                future: agendaService.getNotes(context: context),
+                builder: (context, AsyncSnapshot snapshot) {
+                  return NoteItem(context: context, snapshot: snapshot);
+                }),
+          ),
+          Container(
+            alignment: Alignment.bottomRight,
+            padding: const EdgeInsets.all(20.0),
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) =>
+                    const AddNoteScreen()));
+              },
+              style: ElevatedButton.styleFrom(
+                shape: const CircleBorder(),
+                primary: Colors.blue,
+              ),
+              child: const Icon(Icons.add),
             ),
           ),
         ],

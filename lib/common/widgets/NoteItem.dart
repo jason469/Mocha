@@ -1,21 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:mocha/common/widgets/services/NoteItemServices.dart';
+import 'package:mocha/constants/global_variables.dart';
+import 'package:mocha/models/note.dart';
 
-class NoteItem extends StatelessWidget {
+class NoteItem extends StatefulWidget {
   final BuildContext context;
   final AsyncSnapshot snapshot;
 
-  const NoteItem({Key? key, required this.context, required this.snapshot})
+  NoteItem({Key? key, required this.context, required this.snapshot})
       : super(key: key);
 
   @override
+  State<NoteItem> createState() => _NoteItemState();
+}
+
+class _NoteItemState extends State<NoteItem> {
+  final NoteItemServices noteItemServices = NoteItemServices();
+
+  @override
   Widget build(BuildContext context) {
-    if (!snapshot.hasData) {
+    if (!widget.snapshot.hasData) {
       return const Center(child: CircularProgressIndicator());
     } else {
       return ListView.builder(
-        itemCount: snapshot.data.length,
+        itemCount: widget.snapshot.data.length,
         itemBuilder: (context, index) {
-          final note = snapshot.data[index];
+          final note = widget.snapshot.data[index];
           return Card(
             child: Dismissible(
               key: Key(
@@ -43,27 +53,53 @@ class NoteItem extends StatelessWidget {
               ),
               confirmDismiss: (direction) async {
                 if (direction == DismissDirection.startToEnd) {
+                  noteItemServices.markAsCompleted(
+                    context: context,
+                    id: note.buildId(context),
+                  );
+                  setState(() {
+
+                  });
                   return false;
                 } else {
-                  final snackbarController =
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('Deleted ${note.title}'),
-                      action: SnackBarAction(
-                          label: 'Undo',
-                          onPressed: () {}),
-                    ),
-                  );
-                  await snackbarController.closed;
+                  noteItemServices.deleteNote(
+                      context: context, id: note.buildId(context));
                   return true;
                 }
               },
-              child: ListTile(
-                leading: note.buildDate(context),
-                title: note.buildTitle(context),
-                subtitle: note.buildDescription(context),
-                trailing: note.buildUser(context),
-              ),
+              child: note.buildIsCompleted(context) == false
+                  ? ListTile(
+                      leading: Text(
+                        note.buildDate(context),
+                      ),
+                      title: Text(
+                        note.buildTitle(context),
+                      ),
+                      subtitle: Text(
+                        note.buildDescription(context),
+                      ),
+                      trailing: Text(
+                        note.buildUser(context),
+                      ),
+                    )
+                  : ListTile(
+                      leading: Text(
+                        note.buildDate(context),
+                        style: GlobalVariables.completedNote,
+                      ),
+                      title: Text(
+                        note.buildTitle(context),
+                        style: GlobalVariables.completedNote,
+                      ),
+                      subtitle: Text(
+                        note.buildDescription(context),
+                        style: GlobalVariables.completedNote,
+                      ),
+                      trailing: Text(
+                        note.buildUser(context),
+                        style: GlobalVariables.completedNote,
+                      ),
+                    ),
             ),
           );
         },

@@ -1,12 +1,15 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 abstract class ListItem {
   String buildId(BuildContext context);
-  Widget buildTitle(BuildContext context);
-  Widget buildDescription(BuildContext context);
-  Widget buildDate(BuildContext context);
-  Widget buildUser(BuildContext context);
+  String buildTitle(BuildContext context);
+  String buildDescription(BuildContext context);
+  String buildDate(BuildContext context);
+  String buildUser(BuildContext context);
+  bool buildIsCompleted(BuildContext context);
 }
 
 class MessageItem implements ListItem {
@@ -15,26 +18,26 @@ class MessageItem implements ListItem {
   final String description;
   final DateTime date;
   final String user;
+  final bool isCompleted;
 
-  MessageItem(this.id, this.title, this.description, this.date, this.user);
+  MessageItem(this.id, this.title, this.description, this.date, this.user,
+      this.isCompleted);
 
   @override
   String buildId(BuildContext context) => id;
 
   @override
-  Widget buildTitle(BuildContext context) {
-    return Text(
-      title,
-      style: Theme.of(context).textTheme.headline5,
-    );
-  }
+  String buildTitle(BuildContext context) => title;
 
   @override
-  Widget buildDescription(BuildContext context) => Text(description);
+  String buildDescription(BuildContext context) => description;
 
   @override
-  Widget buildDate(BuildContext context) => Text(DateFormat('h:mm a').format(date));
+  String buildDate(BuildContext context) => DateFormat('h:mm a').format(date);
 
   @override
-  Widget buildUser(BuildContext context) => Text(user);
+  String buildUser(BuildContext context) => user;
+
+  @override
+  bool buildIsCompleted(BuildContext context) => isCompleted;
 }

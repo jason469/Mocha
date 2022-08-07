@@ -5,12 +5,14 @@ class Note {
   final String title;
   final String description;
   final String userId;
+  final bool isCompleted;
 
   Note({
     required this.id,
     required this.title,
     required this.description,
     required this.userId,
+    required this.isCompleted,
   });
 
   Map<String, dynamic> toMap() {
@@ -19,6 +21,7 @@ class Note {
       'title': title,
       'description': description,
       'userId': userId,
+      'isCompleted': isCompleted,
     };
   }
 
@@ -28,6 +31,7 @@ class Note {
       title: map['title'] ?? '',
       description: map['description'] ?? '',
       userId: map['userId'] ?? '',
+      isCompleted: map['isCompleted'] ?? '',
     );
   }
 

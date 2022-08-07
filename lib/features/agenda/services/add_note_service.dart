@@ -22,16 +22,17 @@ class AddNoteService {
         title: title,
         description: description,
         userId: userProvider.user.id,
+        isCompleted: false
       );
 
-      final res = await httpPost(context, 'add-note', note.toJson());
+      final res = await httpPost(context, 'notes/add-note', note.toJson());
       httpErrorHandle(
         response: res,
         context: context,
         onSuccess: () {
           showSnackBar(
             context,
-            "Note created successfully!",
+            "Note added successfully!",
           );
         },
       );

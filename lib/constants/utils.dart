@@ -43,3 +43,29 @@ Future<http.Response> httpPost(context, endpoint, body) async {
   );
   return res;
 }
+
+Future<http.Response> httpPatch(context, endpoint, id) async {
+  final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+  http.Response res = await http.patch(
+      Uri.parse('$uri/api/$endpoint/$id'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'x-auth-token': userProvider.user.token,
+      },
+  );
+  return res;
+}
+
+Future<http.Response> httpDelete(context, endpoint, id) async {
+  final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+  http.Response res = await http.delete(
+      Uri.parse('$uri/api/$endpoint/$id'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'x-auth-token': userProvider.user.token,
+      },
+  );
+  return res;
+}
