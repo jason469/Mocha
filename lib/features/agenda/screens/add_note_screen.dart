@@ -9,6 +9,7 @@ import 'package:mocha/features/agenda/screens/agenda_screen.dart';
 
 class AddNoteScreen extends StatefulWidget {
   static const String routeName = '/add-note-screen';
+
   const AddNoteScreen({Key? key}) : super(key: key);
 
   @override
@@ -53,8 +54,11 @@ class _AddNoteScreen extends State<AddNoteScreen> {
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const AgendaScreen()));
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const AgendaScreen(),
+                        ),
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       shape: const CircleBorder(),

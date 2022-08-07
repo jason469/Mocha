@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mocha/common/widgets/CustomButton.dart';
 import 'package:mocha/constants/global_variables.dart';
 import 'package:mocha/providers/user_provider.dart';
 import '../services/profile_service.dart';
@@ -54,6 +55,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         textAlign: TextAlign.center,
                       ),
+                    ),
+                    Container(
+                        padding: const EdgeInsets.all(8.0),
+                        child: CustomButton(
+                            text: "Log Out",
+                            onTap: () => profileService.logOut(context))
                     ),
                   ],
                 ),
