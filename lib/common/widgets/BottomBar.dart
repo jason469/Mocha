@@ -5,106 +5,83 @@ import 'package:mocha/features/agenda/screens/agenda_screen.dart';
 import 'package:mocha/features/calendar/screens/calendar_screen.dart';
 import 'package:mocha/features/profile/screens/profile_screen.dart';
 
-
 class BottomBar extends StatefulWidget {
-  static const String routeName = '/actual-home';
-  BottomBar({Key? key}) : super(key: key);
+  static const String routeName = '/bottom-bar';
+
+  const BottomBar({Key? key}) : super(key: key);
 
   @override
   State<BottomBar> createState() => _BottomBarState();
 }
 
 class _BottomBarState extends State<BottomBar> {
-  int _page = 0;
-  double bottomBarWidth = 42;
-  double bottomBarBorderWidth = 5;
-
-  List<Widget> pages = [
-    const CalendarScreen(),
-    const AgendaScreen(),
-    const ProfileScreen(),
-  ];
-
-  void updatePage(int page) {
-    setState(() {
-      _page = page;
-    });
-  }
+  final PersistentTabController _controller = PersistentTabController(initialIndex: 0);
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: pages[_page],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _page,
-        selectedItemColor: GlobalVariables.selectedNavBarColor,
-        unselectedItemColor: GlobalVariables.unselectedNavBarColor,
-        backgroundColor: GlobalVariables.backgroundColor,
-        iconSize: 28,
-        onTap: updatePage,
-        items: [
-          // Calendar
-          BottomNavigationBarItem(
-            icon: Container(
-              width: bottomBarWidth,
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                    color: _page == 0
-                        ? GlobalVariables.selectedNavBarColor
-                        : GlobalVariables.backgroundColor,
-                    width: bottomBarBorderWidth,
-                  ),
-                ),
-              ),
-              child: const Icon(
-                Icons.calendar_today,
-              ),
-            ),
-            label: '',
-          ),
-          // Agenda
-          BottomNavigationBarItem(
-            icon: Container(
-              width: bottomBarWidth,
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                    color: _page == 1
-                        ? GlobalVariables.selectedNavBarColor
-                        : GlobalVariables.backgroundColor,
-                    width: bottomBarBorderWidth,
-                  ),
-                ),
-              ),
-              child: const Icon(
-                Icons.edit_note_outlined,
-              ),
-            ),
-            label: '',
-          ),
-          // Profile
-          BottomNavigationBarItem(
-            icon: Container(
-              width: bottomBarWidth,
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                    color: _page == 2
-                        ? GlobalVariables.selectedNavBarColor
-                        : GlobalVariables.backgroundColor,
-                    width: bottomBarBorderWidth,
-                  ),
-                ),
-              ),
-              child: const Icon(
-                Icons.person_outline_outlined,
-              ),
-            ),
-            label: '',
-          )
-        ],
+  List<Widget> _buildScreens() {
+    return [
+      const CalendarScreen(),
+      const AgendaScreen(),
+      const ProfileScreen()
+    ];
+  }
+
+  List<PersistentBottomNavBarItem> _navBarsItems() {
+    return [
+      PersistentBottomNavBarItem(
+        icon: const Icon(
+          Icons.calendar_today,
+        ),
       ),
+      PersistentBottomNavBarItem(
+        icon: const Icon(
+          Icons.edit_note_outlined,
+        ),
+      ),
+      PersistentBottomNavBarItem(
+        icon: const Icon(
+          Icons.person_outline_outlined,
+        ),
+      ),
+    ];
+  }
+
+  Widget build(BuildContext context) {
+    return PersistentTabView(
+      context,
+      controller: _controller,
+      screens: _buildScreens(),
+      items: _navBarsItems(),
+      confineInSafeArea: true,
+      backgroundColor: Colors.white,
+      // Default is Colors.white.
+      handleAndroidBackButtonPress: true,
+      // Default is true.
+      resizeToAvoidBottomInset: true,
+      // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
+      stateManagement: true,
+      // Default is true.
+      hideNavigationBarWhenKeyboardShows: true,
+      // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
+      decoration: NavBarDecoration(
+        borderRadius: BorderRadius.circular(10.0),
+        colorBehindNavBar: Colors.white,
+      ),
+      popAllScreensOnTapOfSelectedTab: true,
+      popActionScreens: PopActionScreensType.all,
+      itemAnimationProperties: const ItemAnimationProperties(
+        // Navigation Bar's items animation properties.
+        duration: Duration(milliseconds: 200),
+        curve: Curves.ease,
+      ),
+      screenTransitionAnimation: const ScreenTransitionAnimation(
+        // Screen transition animation on change of selected tab.
+        animateTabTransition: true,
+        curve: Curves.ease,
+        duration: Duration(milliseconds: 200),
+      ),
+      navBarStyle:
+      NavBarStyle.style1, // Choose the nav bar style with this property.
     );
   }
 }

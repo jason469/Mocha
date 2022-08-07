@@ -9,7 +9,6 @@ import 'package:mocha/features/agenda/screens/agenda_screen.dart';
 
 class AddNoteScreen extends StatefulWidget {
   static const String routeName = '/add-note-screen';
-
   const AddNoteScreen({Key? key}) : super(key: key);
 
   @override

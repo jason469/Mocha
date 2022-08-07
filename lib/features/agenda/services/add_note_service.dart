@@ -1,11 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
-import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
 import 'package:mocha/constants/error_handling.dart';
-import 'package:mocha/constants/global_variables.dart';
 import 'package:mocha/constants/utils.dart';
 
 import 'package:mocha/models/note.dart';
@@ -28,15 +24,7 @@ class AddNoteService {
         userId: userProvider.user.id,
       );
 
-      http.Response res = await http.post(
-        Uri.parse('$uri/api/add-note'),
-        body: note.toJson(),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Accept': 'application/json',
-          'x-auth-token': userProvider.user.token,
-        },
-      );
+      final res = await httpPost(context, 'add-note', note.toJson());
       httpErrorHandle(
         response: res,
         context: context,
