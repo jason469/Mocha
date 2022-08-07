@@ -2,8 +2,8 @@ require('dotenv').config()
 
 const express = require('express');
 const mongoose = require('mongoose');
-const noteRouter = require('./routes/auth');
 const authRouter = require('./routes/auth')
+const noteRouter = require('./routes/note');
 
 //Define backend
 const app = express();

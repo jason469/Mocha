@@ -2,10 +2,6 @@ const mongoose = require('mongoose')
 
 const noteSchema = mongoose.Schema(
     {
-        id: {
-            required: true,
-            type: Number,
-        },
         title: {
             required: true,
             type: String,
@@ -22,7 +18,12 @@ const noteSchema = mongoose.Schema(
         },
         userId: {
             required: true, 
-            type: String
+            type: String,
+        },
+        isCompleted: {
+            required: true, 
+            type: Boolean, 
+            default: false,
         }
     },
     {
