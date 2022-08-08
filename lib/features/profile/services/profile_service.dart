@@ -9,7 +9,7 @@ class ProfileService {
     try {
       SharedPreferences sharedPreferences =
           await SharedPreferences.getInstance();
-      await sharedPreferences.setString('x-auth-token', null);
+      await sharedPreferences.setString('x-auth-token', "");
       Navigator.of(context, rootNavigator: true).pushReplacement(
           MaterialPageRoute(builder: (context) => new AuthScreen()));
     } catch (e) {

@@ -57,7 +57,6 @@ class _CalendarScreen extends State<CalendarScreen> {
         _rangeEnd = null;
         _rangeSelectionMode = RangeSelectionMode.toggledOff;
       });
-
       _selectedEvents.value = _getEventsForDay(selectedDay);
     }
   }

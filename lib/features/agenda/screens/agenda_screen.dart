@@ -62,7 +62,14 @@ class _AgendaScreenState extends State<AgendaScreen> {
             child: FutureBuilder(
                 future: agendaService.getNotes(context: context),
                 builder: (context, AsyncSnapshot snapshot) {
-                  return NoteItem(context: context, snapshot: snapshot);
+                  return ListView.builder(
+                      itemCount: snapshot.data.length,
+                      itemBuilder: (context, index) {
+                        return NoteItem(
+                          context: context,
+                          noteData: snapshot.data[index]
+                        );
+                      });
                 }),
           ),
           Container(
@@ -71,8 +78,7 @@ class _AgendaScreenState extends State<AgendaScreen> {
             child: ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) =>
-                    const AddNoteScreen()));
+                    builder: (context) => const AddNoteScreen()));
               },
               style: ElevatedButton.styleFrom(
                 shape: const CircleBorder(),

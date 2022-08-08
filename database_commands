@@ -1,0 +1,2 @@
+mongosh "mongodb+srv://mochacluster.dmlwz.mongodb.net/MOCHADB" --apiVersion 1 --username JasonLiu
+ncphtWGGBQKigKc
