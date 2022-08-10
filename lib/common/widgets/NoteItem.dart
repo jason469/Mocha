@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mocha/common/widgets/ListItem.dart';
 import 'package:mocha/common/widgets/services/NoteItemServices.dart';
 import 'package:mocha/constants/global_variables.dart';
-import 'package:mocha/models/note.dart';
+import 'package:mocha/features/agenda/screens/edit_note_screen.dart';
 
 class NoteItem extends StatefulWidget {
   final BuildContext context;
@@ -42,6 +42,12 @@ class _NoteItemState extends State<NoteItem> {
     return true;
   }
 
+
+  selectNote() {
+    print('select');
+    setState(() => _noteSelected = !_noteSelected);
+  }
+
   @override
   Widget build(BuildContext context) {
     if (_loading) {
@@ -55,8 +61,8 @@ class _NoteItemState extends State<NoteItem> {
             : null,
         elevation: _noteSelected ? 5 : 2,
         child: GestureDetector(
-          onTap: editNote,
-          onDoubleTap: selectNote,
+          onTap: noteItemServices.editNote(context, widget),
+          onDoubleTap: selectNote(),
           child: Dismissible(
             key: Key(
               _note.buildId(context),
@@ -126,16 +132,6 @@ class _NoteItemState extends State<NoteItem> {
       );
     }
   }
-
-  editNote() {
-    print('edit');
-  }
-
-  selectNote() {
-    print('select');
-    setState(() => _noteSelected = !_noteSelected);
-  }
-
   @override
   void initState() {
     setState(() {

@@ -13,12 +13,12 @@ class EditNoteService {
     required BuildContext context,
     required String title,
     required String description,
-    required int noteId,
+    required String noteId,
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
 
     try {
-      var noteData = {
+      Map<String, dynamic> noteData = {
         "title": title,
         "description": description,
         "noteId": noteId

@@ -10,10 +10,9 @@ import 'package:mocha/models/note.dart';
 
 class EditNoteScreen extends StatefulWidget {
   static const String routeName = '/add-note-screen';
+  final Note note;
 
   const EditNoteScreen({Key? key, required this.note}) : super(key: key);
-
-  final Note note;
 
   @override
   State<EditNoteScreen> createState() => _EditNoteScreen();
@@ -37,7 +36,7 @@ class _EditNoteScreen extends State<EditNoteScreen> {
       context: context,
       title: _titleController.text,
       description: _descriptionController.text,
-      noteId: note,
+      noteId: widget.note.id,
     );
     _titleController.clear();
     _descriptionController.clear();
@@ -45,8 +44,6 @@ class _EditNoteScreen extends State<EditNoteScreen> {
 
   @override
   Widget build(BuildContext context) {
-    late Note note;
-
     return Scaffold(
       backgroundColor: GlobalVariables.greyBackgroundCOlor,
       body: SafeArea(
@@ -60,11 +57,7 @@ class _EditNoteScreen extends State<EditNoteScreen> {
                     padding: const EdgeInsets.all(8.0),
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => const AgendaScreen(),
-                          ),
-                        );
+                        Navigator.of(context).pop(context);
                       },
                       style: ElevatedButton.styleFrom(
                         shape: const CircleBorder(),
@@ -89,7 +82,7 @@ class _EditNoteScreen extends State<EditNoteScreen> {
                       CustomTextField(
                         controller: _titleController,
                         hintText: "Title",
-                        initialText: note.title,
+                        initialText: widget.note.title,
                       ),
                       const SizedBox(
                         height: 10,
@@ -97,7 +90,7 @@ class _EditNoteScreen extends State<EditNoteScreen> {
                       CustomTextField(
                         controller: _descriptionController,
                         hintText: "Description",
-                        initialText: note.description,
+                        initialText: widget.note.description,
                         maxLines: 7,
                       ),
                       const SizedBox(
@@ -118,11 +111,5 @@ class _EditNoteScreen extends State<EditNoteScreen> {
         ),
       ),
     );
-  }
-
-  @override
-  void initState() {
-    note = widget.note;
-    super.initState();
   }
 }

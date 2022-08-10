@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
@@ -43,15 +45,16 @@ Future<http.Response> httpPost(context, endpoint, body) async {
   return res;
 }
 
-Future<http.Response> httpPatch(context, endpoint, id) async {
+Future<http.Response> httpPatch(context, endpoint, body) async {
   final userProvider = Provider.of<UserProvider>(context, listen: false);
 
   http.Response res = await http.patch(
-      Uri.parse('$uri/api/$endpoint/$id'),
+      Uri.parse('$uri/api/$endpoint'),
       headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
+        'Content-Type': 'application/json-patch+json; charset=UTF-8',
         'x-auth-token': userProvider.user.token,
       },
+    body: jsonEncode(body)
   );
   return res;
 }

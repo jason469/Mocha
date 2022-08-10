@@ -23,7 +23,7 @@ class _AgendaScreenState extends State<AgendaScreen> {
   final AgendaService agendaService = AgendaService();
   List<ListItem> _allNotes = [];
   List<ListItem> _selectedNotes = [];
-  bool _displaySearch = false;
+  final bool _displaySearch = false;
 
   @override
   Widget build(BuildContext context) {

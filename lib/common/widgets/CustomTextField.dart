@@ -5,6 +5,7 @@ class CustomTextField extends StatelessWidget {
   final String hintText;
   final int maxLines;
   final String initialText;
+  final bool hidden;
 
   const CustomTextField({
     Key? key,
@@ -12,13 +13,15 @@ class CustomTextField extends StatelessWidget {
     required this.hintText,
     this.maxLines = 1,
     this.initialText = "",
+    this.hidden = false
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    controller.text = initialText;
     return TextFormField(
-      initialValue: initialText,
       controller: controller,
+      obscureText: hidden,
       decoration: InputDecoration(
         hintText: hintText,
         border: const OutlineInputBorder(

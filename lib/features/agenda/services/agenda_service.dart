@@ -22,6 +22,7 @@ class AgendaService {
             item["title"],
             item["description"],
             DateTime.parse(item["date"]),
+            item["userId"],
             item["userName"],
             item["isCompleted"],
           ),
