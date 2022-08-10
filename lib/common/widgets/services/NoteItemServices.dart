@@ -14,16 +14,10 @@ class NoteItemServices {
       httpErrorHandle(
         response: res,
         context: context,
-        onSuccess: () {
-          showSnackBar(
-            context,
-            "Note toggled",
-          );
-        },
+        onSuccess: () {},
       );
       return jsonDecode(res.body)["isCompleted"];
     } catch (e) {
-      showSnackBar(context, e.toString());
       return false;
     }
   }

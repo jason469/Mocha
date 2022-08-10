@@ -13,7 +13,7 @@ class AgendaService {
 
     try {
       final res = await httpGet(context, 'notes');
-      var resBody = jsonDecode(res.body);
+      List<dynamic> resBody = json.decode(res.body);
       for (var i = 0; i < resBody.length; i++) {
         var item = resBody[i];
         allNotes.add(
