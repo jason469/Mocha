@@ -21,7 +21,8 @@ class NoteItem extends StatefulWidget {
 class _NoteItemState extends State<NoteItem> {
   final NoteItemServices noteItemServices = NoteItemServices();
   late bool _loading;
-  bool? _noteStatus;
+  bool? _noteCompleted;
+  late bool _noteSelected;
   late ListItem _note;
 
   Future<bool> swipeRight() async {
@@ -29,8 +30,7 @@ class _NoteItemState extends State<NoteItem> {
       context: context,
       id: _note.buildId(context),
     );
-    setState(() => _noteStatus = status);
-    print(_noteStatus);
+    setState(() => _noteCompleted = status);
     return false;
   }
 
@@ -48,80 +48,100 @@ class _NoteItemState extends State<NoteItem> {
       return const Center(child: CircularProgressIndicator());
     } else {
       return Card(
-        child: Dismissible(
-          key: Key(
-            _note.buildId(context),
-          ),
-          background: Container(
-            color: Colors.green,
-            child: const Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: EdgeInsets.only(left: 16),
-                child: Icon(Icons.check),
-              ),
+        shape: _noteSelected
+            ? const RoundedRectangleBorder(
+                side: BorderSide(color: Colors.green),
+              )
+            : null,
+        elevation: _noteSelected ? 5 : 2,
+        child: GestureDetector(
+          onTap: editNote,
+          onDoubleTap: selectNote,
+          child: Dismissible(
+            key: Key(
+              _note.buildId(context),
             ),
-          ),
-          secondaryBackground: Container(
-            color: Colors.red,
-            child: const Align(
-              alignment: Alignment.centerRight,
-              child: Padding(
-                padding: EdgeInsets.only(left: 16),
-                child: Icon(Icons.delete),
-              ),
-            ),
-          ),
-          confirmDismiss: (direction) async {
-            if (direction == DismissDirection.startToEnd) {
-              return swipeRight();
-            } else {
-              return swipeLeft();
-            }
-          },
-          child: _noteStatus == false
-              ? ListTile(
-                  leading: Text(
-                    _note.buildDate(context),
-                  ),
-                  title: Text(
-                    _note.buildTitle(context),
-                  ),
-                  subtitle: Text(
-                    _note.buildDescription(context),
-                  ),
-                  trailing: Text(
-                    _note.buildUserName(context),
-                  ),
-                )
-              : ListTile(
-                  leading: Text(
-                    _note.buildDate(context),
-                    style: GlobalVariables.completedNote,
-                  ),
-                  title: Text(
-                    _note.buildTitle(context),
-                    style: GlobalVariables.completedNote,
-                  ),
-                  subtitle: Text(
-                    _note.buildDescription(context),
-                    style: GlobalVariables.completedNote,
-                  ),
-                  trailing: Text(
-                    _note.buildUserName(context),
-                    style: GlobalVariables.completedNote,
-                  ),
+            background: Container(
+              color: Colors.green,
+              child: const Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: EdgeInsets.only(left: 16),
+                  child: Icon(Icons.check),
                 ),
+              ),
+            ),
+            secondaryBackground: Container(
+              color: Colors.red,
+              child: const Align(
+                alignment: Alignment.centerRight,
+                child: Padding(
+                  padding: EdgeInsets.only(left: 16),
+                  child: Icon(Icons.delete),
+                ),
+              ),
+            ),
+            confirmDismiss: (direction) async {
+              if (direction == DismissDirection.startToEnd) {
+                return swipeRight();
+              } else {
+                return swipeLeft();
+              }
+            },
+            child: _noteCompleted == false
+                ? ListTile(
+                    leading: Text(
+                      _note.buildDate(context),
+                    ),
+                    title: Text(
+                      _note.buildTitle(context),
+                    ),
+                    subtitle: Text(
+                      _note.buildDescription(context),
+                    ),
+                    trailing: Text(
+                      _note.buildUserName(context),
+                    ),
+                  )
+                : ListTile(
+                    leading: Text(
+                      _note.buildDate(context),
+                      style: GlobalVariables.completedNote,
+                    ),
+                    title: Text(
+                      _note.buildTitle(context),
+                      style: GlobalVariables.completedNote,
+                    ),
+                    subtitle: Text(
+                      _note.buildDescription(context),
+                      style: GlobalVariables.completedNote,
+                    ),
+                    trailing: Text(
+                      _note.buildUserName(context),
+                      style: GlobalVariables.completedNote,
+                    ),
+                  ),
+          ),
         ),
       );
     }
+  }
+
+  editNote() {
+    print('edit');
+  }
+
+  selectNote() {
+    print('select');
+    setState(() => _noteSelected = !_noteSelected);
   }
 
   @override
   void initState() {
     setState(() {
       _note = widget.noteData;
-      _noteStatus = widget.noteData.buildIsCompleted(context);
+      _noteCompleted = widget.noteData.buildIsCompleted(context);
+      _noteSelected = false;
       _loading = false;
     });
   }
