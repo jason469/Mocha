@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:intl/intl.dart';
 import 'package:mocha/common/widgets/ListItem.dart';
 
@@ -89,8 +90,11 @@ class _AgendaScreenState extends State<AgendaScreen> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const AddNoteScreen()));
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (context) => const AddNoteScreen(),
+                          ),
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         shape: const CircleBorder(),

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:mocha/constants/utils.dart';
 import '../../../constants/error_handling.dart';
 import '../../../features/agenda/screens/edit_note_screen.dart';
@@ -47,12 +48,16 @@ class NoteItemServices {
   }
 
   editNote(context, widget) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) =>
-            EditNoteScreen(note: widget.noteData.buildNote(context)),
-      ),
+    SchedulerBinding.instance.addPostFrameCallback(
+      (_) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                EditNoteScreen(note: widget.noteData.buildNote(context)),
+          ),
+        );
+      },
     );
   }
 }

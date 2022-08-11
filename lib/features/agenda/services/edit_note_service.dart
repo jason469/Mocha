@@ -15,8 +15,6 @@ class EditNoteService {
     required String description,
     required String noteId,
   }) async {
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
-
     try {
       Map<String, dynamic> noteData = {
         "title": title,

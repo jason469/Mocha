@@ -44,7 +44,6 @@ class _NoteItemState extends State<NoteItem> {
 
 
   selectNote() {
-    print('select');
     setState(() => _noteSelected = !_noteSelected);
   }
 
