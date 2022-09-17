@@ -14,7 +14,6 @@ authRouter.get('/', auth, async (req, res) => {
 
 authRouter.post('/api/signup', async (req, res) => {
     try {
-        console.log(`request is ${req}`)
         const {
             name,
             email,

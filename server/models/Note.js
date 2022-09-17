@@ -20,6 +20,10 @@ const noteSchema = mongoose.Schema(
             required: true, 
             type: String,
         },
+        userName: {
+            required: true, 
+            type: String,
+        },
         isCompleted: {
             required: true, 
             type: Boolean, 
