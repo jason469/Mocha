@@ -21,13 +21,14 @@ class AuthService {
   }) async {
     try {
       User user = User(
-          id: '',
-          name: name,
-          email: email,
-          password: password,
-          address: '',
-          type: '',
-          token: '');
+        id: '',
+        name: name,
+        email: email,
+        password: password,
+        address: '',
+        type: '',
+        token: '',
+      );
 
       http.Response res = await http.post(Uri.parse('$uri/api/signup'),
           body: user.toJson(),
@@ -40,7 +41,7 @@ class AuthService {
         onSuccess: () {
           showSnackBar(
             context,
-            "Account Created successfully! Log in with the same credentials",
+            "Account created successfully! Log in with the same credentials",
           );
         },
       );
@@ -55,21 +56,18 @@ class AuthService {
     required String password,
   }) async {
     try {
-      http.Response res = await http.post(Uri.parse('$uri/api/signin'),
-          body: jsonEncode({'email': email, 'password': password}),
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8'
-          });
+      http.Response res = await http.post(
+        Uri.parse('$uri/api/signin'),
+        body: jsonEncode({'email': email, 'password': password}),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
       httpErrorHandle(
         response: res,
         context: context,
         onSuccess: () async {
           Provider.of<UserProvider>(context, listen: false).setUser(res.body);
-          Navigator.pushNamedAndRemoveUntil(
-            context,
-            BottomBar.routeName,
-            (route) => false,
-          );
           SharedPreferences prefs = await SharedPreferences.getInstance();
           prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
         },

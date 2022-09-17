@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-String uri = 'http://192.168.1.141:5000';
+String uri = 'http://10.100.3.28:5000';
+// String uri = 'http://192.168.1.141:5000';
 
 class GlobalVariables {
   // COLORS
@@ -17,4 +18,9 @@ class GlobalVariables {
   static const Color greyBackgroundCOlor = Color(0xffebecee);
   static var selectedNavBarColor = Colors.cyan[800]!;
   static const unselectedNavBarColor = Colors.black87;
+
+  static const completedNote = TextStyle(
+    decoration: TextDecoration.lineThrough,
+    color: Colors.grey
+  );
 }

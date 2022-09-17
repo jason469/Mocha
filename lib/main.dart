@@ -24,6 +24,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final AuthService authService = AuthService();
+
   @override
   void initState() {
     super.initState();
@@ -34,14 +35,17 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'Mocha',
       theme: ThemeData(
-          scaffoldBackgroundColor: GlobalVariables.backgroundColor,
-          colorScheme:
-              const ColorScheme.light(primary: GlobalVariables.secondaryColor),
-          appBarTheme: const AppBarTheme(
-              elevation: 0, iconTheme: IconThemeData(color: Colors.black))),
+        scaffoldBackgroundColor: GlobalVariables.backgroundColor,
+        colorScheme:
+            const ColorScheme.light(primary: GlobalVariables.secondaryColor),
+        appBarTheme: const AppBarTheme(
+          elevation: 0,
+          iconTheme: IconThemeData(color: Colors.black),
+        ),
+      ),
       onGenerateRoute: (settings) => generateRoute(settings),
       home: Provider.of<UserProvider>(context).user.token.isNotEmpty
-          ? BottomBar()
+          ? const BottomBar()
           : const AuthScreen(),
     );
   }

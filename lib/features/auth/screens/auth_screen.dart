@@ -106,9 +106,10 @@ class _AuthScreenState extends State<AuthScreen> {
                       const SizedBox(
                         height: 10,
                       ),
-                      HiddenTextField(
+                      CustomTextField(
                         controller: _passwordController,
                         hintText: "Password",
+                        hidden: true,
                       ),
                       const SizedBox(
                         height: 10,
